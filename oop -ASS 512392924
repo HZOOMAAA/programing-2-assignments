@@ -1,0 +1,109 @@
+import sys
+
+
+class product:
+    SuperMarket_name = "PandaMarket"
+
+    def __init__(self, product_ID, name, price, manufacturer, weight, expiration_date, year):
+        self.__ID = product_ID
+        self.n = name
+        self.p = price
+        self.m = manufacturer
+        self.w = weight
+        self.e = expiration_date
+        self.y = year
+
+    def display_product_details(self):
+        print("Product Name is", self.n)
+        print("Product Price is", self.p)
+        print("Product  Weight is", self.w)
+        print("Product expiration date is", self.e)
+        print("Product manufactured at", self.m)
+
+    def setter(self, id):
+        self.__ID = id
+
+
+########################################################################################################################
+
+
+class healthy(product):
+    def __init__(self, product_ID, name, price, manufacturer, weight, expiration_date, year, calories, components):
+        super().__init__(product_ID, name, price, manufacturer, weight, expiration_date, year)
+        self.Ca = calories
+        self.Co = components
+
+    def display_healthy_details(self):
+        print("Product Name is: ", self.n)
+        print("Product Price is: ", self.p)
+        print("Product  Weight is: ", self.w)
+        print("Product expiration date is: ", self.e)
+        print("Product manufactured at: ", self.m)
+        print("product year is: ",self.y)
+
+    def display_components_and_calories(self):
+        print("product components is: ", self.Co)
+        print("product calories is: ", self.Ca)
+
+
+########################################################################################################################
+while True:
+    system = int(input("enter  \n 1 for  product \n 2 for Healthy \n 3 for exit the system \n = "))
+
+    if system == 1:
+        while True:
+            option = int(input(
+                "enter \n 1 add new product \n 2 display product detials \n 3 change edit & product id \n 4 exit the "
+                "sub system \n 5 exit the super market cashier \n = "))
+            if option == 1:
+                product_ID = str(input("enter product ID: \n"))
+                name = str(input("enter product name: \n"))
+                price = str(input("enter product price: \n"))
+                manufacturer = str(input("enter product manufacturer: \n"))
+                weight = int(input("enter product weight: \n"))
+                expiration_date = int(input("enter product expiration date: \n"))
+                year = int(input("enter product year: \n"))
+                object1 = product(product_ID, name, price, manufacturer, weight, expiration_date, year)
+            elif option == 2:
+                object1.display_product_details()
+            elif option == 3:
+                id = int(input("enter new id: \n"))
+            elif option == 4:
+                break
+            elif option == 5:
+                sys.exit()
+    elif system == 2:
+        while True:
+            option = int(input(
+                "enter \n 1 add new healthy product \n 2 display healthy product details \n 3 change edit & product "
+                "id \n 4 check for calories and product components \n 5 compute total calories of the product \n 6 "
+                "exit the subsystem \n 7 exit the supermarket cashier \n = "))
+            if option == 1:
+                product_ID = str(input("enter product ID: \n"))
+                name = str(input("enter product name: \n"))
+                price = str(input("enter product price: \n"))
+                manufacturer = str(input("enter product manufacturer: \n"))
+                weight = int(input("enter product weight: \n"))
+                expiration_date = int(input("enter product expiration date: \n"))
+                calories = int(input("enter calories: \n"))
+                components = str(input("enter product components: \n"))
+                year = int(input("enter product year: \n"))
+                object2 = healthy(product_ID, name, price, manufacturer, weight, expiration_date, year, calories, components)
+            elif option == 2:
+                object2.display_healthy_details()
+            elif option == 3:
+                id = int(input("enter new id: \n"))
+            elif option == 4:
+                object2 = healthy(product_ID, name, price, manufacturer, weight, expiration_date, calories, components)
+                object2.display_components_and_calories()
+            elif option == 5:
+                Total_Calories=calories*weight
+                print(Total_Calories)
+            elif option == 6:
+                break
+            elif option == 7:
+                sys.exit()
+
+    elif system == 3:
+        print("you exited from the system")
+        sys.exit()
