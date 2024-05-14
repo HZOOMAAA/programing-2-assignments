@@ -1,0 +1,116 @@
+import tkinter.ttk
+from tkinter import *
+from PIL import ImageTk, Image
+from tkinter import messagebox
+
+win = Tk()
+win.title("Plan Your Loan - Bank Misr")
+win.geometry("700x400+300+270")
+win.resizable(False, False)
+win.config(bg="#A91D3A")
+
+
+
+def loan_payment():
+    years = int(e2.get())
+    amount = float(e1.get())
+    fixed_interest = 0
+    global_fixed_interest = 0
+    if years > 7:
+        messagebox.showerror("Error", "Maximum loan duration is 7 years.")
+        return
+    if years == 1:
+        fixed_interest = global_fixed_interest + 13.76
+    elif years == 2:
+        fixed_interest = global_fixed_interest + 17.71
+    elif years == 3:
+        fixed_interest = global_fixed_interest + 18.27
+    elif years == 4:
+        fixed_interest = global_fixed_interest + 14.45
+    elif years == 5:
+        fixed_interest = global_fixed_interest + 14.87
+    elif years == 6:
+        fixed_interest = global_fixed_interest + 15.29
+    elif years == 7:
+        fixed_interest = global_fixed_interest + 15.71
+    # else:messagebox.showerror("invalid number"))
+
+    Interest_in_one_year = (amount * fixed_interest) / 100
+    Total_interests = Interest_in_one_year * years
+    Total_loan = amount + Total_interests
+    Pay_of_month = Total_loan / (years * 12)
+    output = output_text="Loan details:\nLoan amount: {}\nInterest in one year: {}\nTotal interests: {}\nTotal loan: {}\nPay of month: {}".format(
+        amount,round( Interest_in_one_year),round (Total_interests), round(Total_loan),round (Pay_of_month))
+    out_l.config(text=output)
+
+
+def clear():
+    e1.delete(0, 'end')
+    e2.delete(0, 'end')
+    out_l.config(text='')
+
+
+def exit():
+    win.quit()
+
+
+f1 = Frame(win,bg="#A91D3A")
+f1.pack(side=TOP)
+
+f2 = Frame(win,bg="#A91D3A")
+f2.pack(side=LEFT)
+
+f3 = Frame(win,bg="#A91D3A")
+f3.pack(side=RIGHT)
+
+f4 = Frame(win,bg="#A91D3A")
+f4.pack(side=BOTTOM)
+
+my_pic = Image.open("R.png")
+resized = my_pic.resize((250, 188), )
+
+new_pic = ImageTk.PhotoImage(resized)
+
+l0 = Label(f1, image=new_pic, bg="#A91D3A",)
+l0.pack()
+
+l1 = Label(f2, text="select your job title   ", font=('Aerial 13 bold'), bg="#A91D3A",pady=10)
+l1.pack()
+
+combobox = tkinter.ttk.Combobox(f3, values=["Doctor", "Engineer", "Professor", "Freelancer"], width=40, height=20)
+combobox.insert(0, "Job Title")
+combobox.pack(pady=10)
+
+l2 = Label(f2, text=" select your loan type  ", font=('Aerial 13 bold'), bg="#A91D3A",pady=10)
+l2.pack()
+
+combobox2 = tkinter.ttk.Combobox(f3, values=["Personal loan", "Mortgage loan", "Commercial loan", "Murabaha loan"],
+                                 width=40, height=20)
+combobox2.insert(0, "Loan Type")
+combobox2.pack(pady=10)
+
+l3 = Label(f2, text="enter amount of money", font=('Aerial 12 bold'), bg="#A91D3A",pady=10)
+l3.pack()
+
+e1 = Entry(f3, width=40, bd=5)
+e1.pack(pady=10)
+
+l4 = Label(f2, text="  enter number of years ", font=('Aerial 12 bold'), bg="#A91D3A",pady=10)
+l4.pack()
+
+e2 = Entry(f3,width=40, bd=5)
+e2.pack(pady=10)
+
+b = Button(f4, text="submit", command=loan_payment)
+b.pack()
+
+b2 = Button(f2, text="clear", command=clear)
+b2.pack()
+
+b3 = Button(f3,text="exit", command=exit, )
+b3.pack()
+
+out_l = Label(win)
+out_l.pack()
+
+win.mainloop()
